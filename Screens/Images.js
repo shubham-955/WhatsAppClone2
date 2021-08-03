@@ -15,7 +15,7 @@ const Images = () => {
     }, [])
 
     function myFunction(value, index, array){
-         return ("key:", value);
+         return value;
     }
 
     const GetImages = () => {
