@@ -34,7 +34,6 @@ const GetContacts = (props) => {
         show: false
     });
 
-
     useEffect(() => {
         if (Platform.OS === 'android') {
             PermissionsAndroid.request(
