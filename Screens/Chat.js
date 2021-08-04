@@ -9,7 +9,6 @@ import { Fab, Icon, NativeBaseProvider } from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DataItem from '../DataItem'
 
-
 function Chat(props) {
     
     const { navigation } = props;
@@ -17,7 +16,6 @@ function Chat(props) {
     useEffect(() => {
         GetData()
     }, [])
-
 
     const [myJsonData, setMyJsondata] = useState([]);
     const [loading, setLoading] = useState(false);

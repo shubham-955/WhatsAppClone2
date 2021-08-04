@@ -1,37 +1,36 @@
-import React, {useState, useEffect} from 'react';
-import { View, Text, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, ActivityIndicator, Image } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
-import RNFS from 'react-native-fs';
 let dirs = RNFetchBlob.fs.dirs;
-let Show = dirs.SDCardDir + '/TabImages'
-
+let Show = 'file://' + dirs.SDCardDir + '/TabImages'
 
 const Images = () => {
 
-    const [display, setDisplay] = useState([])
+    const [loading, setLoading] = useState(false);
+    const [display, setDisplay] = useState([]);
 
     useEffect(() => {
         GetImages()
     }, [])
 
-    function myFunction(value, index, array){
-         return value;
-    }
-
     const GetImages = () => {
-        console.log('images',dirs)
+        setLoading(true);
+        console.log('images', dirs)
         try {
             RNFetchBlob.fs.isDir(dirs.SDCardDir + '/TabImages')
-            .then(async(isDir) => {
-                if(isDir){
-                    RNFetchBlob.fs.ls(dirs.SDCardDir + '/TabImages').then(async (files) => {
-                        console.log(files);
-                        let newFiles = files.map(myFunction);
-                        console.log(newFiles);
-                        setDisplay(newFiles);
-                    })
-                }
-            });
+                .then(async (isDir) => {
+                    if (isDir) {
+                        RNFetchBlob.fs.ls(dirs.SDCardDir + '/TabImages').then(async (files) => {
+                            console.log(files);
+                            let newFiles = files.map((value) => {
+                                return value;
+                            });
+                            console.log(newFiles);
+                            setDisplay(newFiles);
+                            setLoading(false);
+                        })
+                    }
+                });
         } catch (error) {
             console.log(error)
         }
@@ -39,12 +38,20 @@ const Images = () => {
 
     return (
         <View>
-         <Text>
-             {display}
-         </Text>
+            {loading ?
+                <ActivityIndicator size="large" color="grey" style={{ marginTop: 20 }} />
+                :
+                    <FlatList
+                       data={display}
+                       renderItem={({item}) => 
+                       <Image
+                         style={{width:'90%', height:200, margin:20, backgroundColor:'yellow', resizeMode:'cover'}}
+                         source={{ uri: Show + '/' + item }}
+                       />}
+                    />
+            }
         </View>
     )
 }
-
 
 export default Images;
