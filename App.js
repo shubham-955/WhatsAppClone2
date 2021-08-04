@@ -7,6 +7,7 @@ import HomeScreen from './Screens/HomeScreen';
 import IndividualScreen from './Screens/IndividualScreen';
 import GetContacts from './Screens/GetContacts'
 import  Images  from './Screens/Images';
+import SingleImage from './Screens/SingleImage';
 import { ActivityIndicator, View } from 'react-native';
 import RootStackScreen from './Screens/RootStackScreen';
 import { AuthContext } from './src/Components/context';
@@ -118,6 +119,7 @@ const App = () => {
                         <Stack.Screen name="IndividualScreen" component={IndividualScreen} options={{ headerShown: false }} />
                         <Stack.Screen name="GetContacts" component={GetContacts} options={{ headerShown: false }} />
                         <Stack.Screen name="Images" component={Images} options={{ headerShown: false }} />
+                        <Stack.Screen name="SingleImage" component={SingleImage} options={{ headerShown: false }} />
                     </Stack.Navigator>
                 )
                     :
